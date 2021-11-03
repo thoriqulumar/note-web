@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/main.css') }}">
+	<title></title>
+</head>
+<body>
+  	<form class="modal-content animate" method="POST">
+	    <div class="login">
+	      {% with messages = get_flashed_messages(with_categories=True)%}
+				{% if messages %}
+				{% for category, message in messages %}
+				{% if category == 'error'%}
+				<div class="alert">
+				  <span class="closebtn">&times;</span>  
+				  <strong>Error !</strong> {{ message }}
+				</div>
+				{% else %}
+				<div class="alert success">
+				  <span class="closebtn">&times;</span>  
+				  <strong>Success !</strong>{{ message }}
+				</div>
+				{% endif %}
+				{% endfor %}
+				{% endif %}
+				{% endwith %}
+	      <br>
+		  <center><h2 class="active"> sign up </h2></center>
+		  <form  method="POST">
+		    <input type="email" class="text" id="email-signup" name="email-signup">
+		    <span>Email</span>
+		  	 <br>
+		  	 <br>
+		  	<input type="text" class="text" id="name-signup" name="name-signup">
+		    <span>Name</span>
+		  	 <br>
+		  	 <br>
+		    <input type="password" class="text" id="password-signup" name="password-signup">
+		    <span>Password</span>
+		    <br>
+		    <br>
+		    <input type="password" class="text" id="confirm-password-signup" name="confirm-password-signup">
+		    <span>Confirm Password</span>
+		    <br>
+		    <button class="signin" type="submit">
+		      Sign Up
+		    </button>
+		    <br>
+		  </form>
+		</div>
+
+	</form>
+</body>
+<script type="text/javascript">
+	var close = document.getElementsByClassName("closebtn");
+	var i;
+
+	for (i = 0; i < close.length; i++) {
+	  close[i].onclick = function(){
+	    var div = this.parentElement;
+	    div.style.opacity = "0";
+	    setTimeout(function(){ div.style.display = "none"; }, 600);
+ 	 }
+}
+</script>
+</html>

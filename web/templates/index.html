@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/main.css') }}">
+
+	<title></title>
+</head>
+<body>
+	<center>
+		<h1 class="home-title">Welcome to Thor Note</h1>
+		<p class="p1">
+			Simple note web based to increase your productivity
+		</p>
+		<div class="btn-group">
+			<a href="/signup" class="button button1" style="width:auto;"> Sign Up</a>
+			<a href="/signin" class="button-transparent button-transparent1"  style="width:auto;"> Sign In</a>
+		</div>
+	</center>
+
+<script>
+// Get the modal
+var modal = document.getElementById('form-signin');
+var modal2 = document.getElementById('form-signup')
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal)  {
+        modal.style.display = "none";
+    }else if (event.target == modal2){
+    	modal2.style.display = "none";
+    }
+}
+
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
+</script>
+</body>
+</html>

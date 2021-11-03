@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/home.css') }}">
+	<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+	<ul>
+	  <li><a href="#home" href="/home">Home</a></li>
+	  <li style="float:right"><a class="active" href="/logout">Logout</a></li>
+	</ul>
+
+	<form method="POST">
+		<div align="center">
+			<br>
+			{% with messages = get_flashed_messages(with_categories=True)%}
+			{% if messages %}
+			{% for category, message in messages %}
+			{% if category == 'error'%}
+			<div class="alert">
+			  <span class="closebtn">&times;</span>  
+			  <strong>Error !</strong> {{ message }}
+			</div>
+			{% else %}
+			<div class="alert success">
+			  <span class="closebtn">&times;</span>  
+			  <strong>Success !</strong>{{ message }}
+			</div>
+			{% endif %}
+			{% endfor %}
+			{% endif %}
+			{% endwith %}
+			<h1>Add your note here!</h1>
+	  	<textarea name="content" id="content"></textarea>
+	  	<br />
+	    <button type="submit" class="button button1">Add Note</button>
+	  </div>
+	</form>
+
+	<center>
+  <div class="row">
+  <div class="centercolumn">
+	{% for note in user.notes %}
+    <div class="card">
+    	<div align="right">
+    		<button type="button"  class="close" onclick="deleteNote({{ note.id }})">
+     		 <span aria-hidden="true">&times;</span>
+    		</button>
+    	</div>
+      <h3>{{ note.date }}</h5>
+      <p>{{ note.content }}</p>
+    </div>
+   {% endfor %}
+   </div>
+ 	</div>
+	</center>
+	
+</body>
+<script type="text/javascript">
+	var close = document.getElementsByClassName("closebtn");
+	var i;
+
+	for (i = 0; i < close.length; i++) {
+	  close[i].onclick = function(){
+	    var div = this.parentElement;
+	    div.style.opacity = "0";
+	    setTimeout(function(){ div.style.display = "none"; }, 600);
+ 	  }
+	}
+
+	function deleteNote(note_id){
+		fetch("/delete-note", {
+			method: "POST",
+			body: JSON.stringify({note_id: note_id}),
+		}).then((_res) => {
+			window.location.href = '/home';
+		})
+	}
+</script>
+</html>
